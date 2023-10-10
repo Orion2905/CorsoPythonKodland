@@ -1,17 +1,27 @@
-meme_dict = {
-    "CRINGE": "Qualcosa di eccezionalmente strano o imbarazzante",
-    "LOL": "Una risposta comune a qualcosa di divertente",
-}
+import discord
+from discord.ext import commands
+from random import randint
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f"Hai fatto l\\'accesso come {bot.user}")
+
+@bot.command()
+async def ciao(ctx):
+    await ctx.send(f'Ciao! Sono un bot {bot.user}!')
+
+@bot.command()
+async def heh(ctx, count_heh = 5):
+    await ctx.send("he" * count_heh)
+
+@bot.command()
+async def random(ctx):
+    await ctx.send(randint(1, 10))
 
 
-while True:
-    parola = input("Scrivi una parola che non capisci (usa solo lettere maiuscole!): ")
-    if parola in meme_dict.keys():
-        print(parola, meme_dict[parola])
-    else:
-        print("La prola inserita non è presente all'interno del mio database")
-        
-    x = input("Vuoi continuare? y or n")
-    if x == "n":
-        print("Arrivederci!")
-        break
+bot.run("MTE1ODc5MjMxMDk1NjQ5ODk4NA.G63wI2.G2yfztsODG_g0nC6axx21ezN80YSnKvMCDeXeg")
